@@ -7,16 +7,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 @Entity
 @Table(schema = Constante.schemaPrincipal, name = "cartao")
+@Data
 public class Cartao {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "flashcard.sq_flashcard_cartao")
-	@SequenceGenerator(name = "flashcard.sq_flashcard_cartao", sequenceName = "flashcard.sq_flashcard_cartao" )
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_flashcard_cartao")
+	@SequenceGenerator(name = "sq_flashcard_cartao", schema = Constante.schemaPrincipal, sequenceName = "sq_flashcard_cartao", allocationSize = 1 )
 	private Long id;
 	
 	@Column(name = "texto_frente")
@@ -40,54 +45,7 @@ public class Cartao {
 	@Column(name = "resultado_ultima_resposta")
 	private Resultado resultadoUltimaResposta;
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getTextoFrente() {
-		return textoFrente;
-	}
-	public void setTextoFrente(String textoFrente) {
-		this.textoFrente = textoFrente;
-	}
-	public String getTextoTras() {
-		return textoTras;
-	}
-	public void setTextoTras(String textoTras) {
-		this.textoTras = textoTras;
-	}
-	public LocalDateTime getDataCriacao() {
-		return dataCriacao;
-	}
-	public void setDataCriacao(LocalDateTime dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-	public Integer getNivelConhecimento() {
-		return nivelConhecimento;
-	}
-	public void setNivelConhecimento(Integer nivelConhecimento) {
-		this.nivelConhecimento = nivelConhecimento;
-	}
-	public LocalDateTime getDataUltimaResposta() {
-		return dataUltimaResposta;
-	}
-	public void setDataUltimaResposta(LocalDateTime dataUltimaResposta) {
-		this.dataUltimaResposta = dataUltimaResposta;
-	}
-	public LocalDateTime getDataProximaPergunta() {
-		return dataProximaPergunta;
-	}
-	public void setDataProximaPergunta(LocalDateTime dataProximaPergunta) {
-		this.dataProximaPergunta = dataProximaPergunta;
-	}
-	public Resultado getResultadoUltimaResposta() {
-		return resultadoUltimaResposta;
-	}
-	public void setResultadoUltimaResposta(Resultado resultadoUltimaResposta) {
-		this.resultadoUltimaResposta = resultadoUltimaResposta;
-	}
-	
-	
+	@ManyToOne
+	@JoinColumn(name = "baralho")
+	private Baralho baralho;
 }
