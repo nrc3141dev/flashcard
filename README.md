@@ -1,2 +1,2 @@
 # flashcard
- 
+Ol[a. 
